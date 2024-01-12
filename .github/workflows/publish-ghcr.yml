@@ -18,10 +18,28 @@ jobs:
     build_and_publish:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
             - name: Build and push image
+              uses: actions/checkout@v4
+            
+
+            - name: Log in to Docker Hub
+              uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+              with:
+                  username: KamilKrauze
+                  password: ${{ secrets.DOCKER_PASSWORD }}
+
+            - name: Log in to the Container registry
+              uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Build and push the image
               run: |
-                docker login --username KamilKrauze --password ${{ secrets.GHR_PAT }} ghcr.io
-                docker build . --tag ghcr.io/kamilkrauze/flaskapp:latest
-                docker push ghcr.io/kamilkrauze/flaskapp:latest
+               docker build . --tag ghcr.io/kamilkrauze/flaskapp:latest
+               docker push ghcr.io/kamilkrauze/flaskapp:latest
+               push ghcr.io/kamilkrauze/flaskapp:latest
+              
+
 

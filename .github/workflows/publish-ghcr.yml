@@ -32,7 +32,7 @@ jobs:
               run: |
                docker build . --tag ghcr.io/kamilkrauze/flaskapp:latest
                docker push ghcr.io/kamilkrauze/flaskapp:latest
-               push ghcr.io/kamilkrauze/flaskapp:latest
+               docker push ghcr.io/kamilkrauze/flaskapp:latest
               
 
 

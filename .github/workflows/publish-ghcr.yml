@@ -1,0 +1,27 @@
+name: Build & Publish Docker Image
+
+on:
+    workflow_dispatch:
+      # Inputs the workflow accepts.
+      inputs:
+        name:
+          # Friendly description to be shown in the UI instead of 'name'
+          description: "Checks the Flask-app's container state on the VM"
+          # Default value if no value is explicitly provided
+          default: 'Check container state'
+          # Input has to be provided for the workflow to run
+          required: true
+          # The data type of the input
+          type: string
+
+jobs:
+    build_and_publish:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Build and push image
+              run: |
+                docker login --username KamilKrauze --password ${{ secrets.GHR_PAT }} ghcr.io
+                docker build . --tag ghcr.io/kamilkrauze/flaskapp:latest
+                docker push ghcr.io/kamilkrauze/flaskapp:latest
+

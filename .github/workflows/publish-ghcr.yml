@@ -6,9 +6,9 @@ on:
       inputs:
         name:
           # Friendly description to be shown in the UI instead of 'name'
-          description: "Checks the Flask-app's container state on the VM"
+          description: "Builds a docker container and publishes to ghcr.io"
           # Default value if no value is explicitly provided
-          default: 'Check container state'
+          default: 'Build and publish docker container'
           # Input has to be provided for the workflow to run
           required: true
           # The data type of the input
@@ -20,13 +20,6 @@ jobs:
         steps:
             - name: Build and push image
               uses: actions/checkout@v4
-            
-
-            - name: Log in to Docker Hub
-              uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-              with:
-                  username: KamilKrauze
-                  password: ${{ secrets.DOCKER_PASSWORD }}
 
             - name: Log in to the Container registry
               uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1

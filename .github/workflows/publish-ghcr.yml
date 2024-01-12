@@ -55,5 +55,5 @@ jobs:
             credentials_json: '${{ secrets.GCLOUD_JSON_KEY }}'
 
         - name: SSH into VM
-          run: gcloud compute ssh --project=${{ secrets.GCLOUD_PROJECT_ID }} --zone=${{ secrets.VM_REGION }} ${{ secrets.VM_NAME }} --quiet --command="sudo docker stop myflix; sudo docker stop myflix; sudo docker image rm ghcr.io/kamilkrauze/flaskapp:latest; sudo docker pull ghcr.io/kamilkrauze/flaskapp:latest; sudo docker run -dp 80:80 --name myflix ghcr.io/kamilkrauze/flaskapp:latest"
+          run: gcloud compute ssh --project=${{ secrets.GCLOUD_PROJECT_ID }} --zone=${{ secrets.VM_REGION }} ${{ secrets.VM_NAME }} --quiet --command="sudo docker stop myflix; sudo docker rm myflix; sudo docker image rm ghcr.io/kamilkrauze/flaskapp:latest; sudo docker pull ghcr.io/kamilkrauze/flaskapp:latest; sudo docker run -dp 80:80 --name myflix ghcr.io/kamilkrauze/flaskapp:latest"
 
